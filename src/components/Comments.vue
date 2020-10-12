@@ -2,19 +2,21 @@
   <div class="container">
         <h1>Comentários</h1>
         <hr />
-        <div class="form-todo form-group">
-            <p>
-                <input v-model="name" type="text" class="form-control" placeholder="Nome" aria-label="Nome" aria-describedby="basic-addon1">
-            </p>
-            <p>
-                <textarea v-model="message" placeholder="Escreva seu comentário..."  class="form-control" aria-label="With textarea" name="author"></textarea>
-            </p>
-            <p>
-                <button @click="addComment" type="submit" class="btn btn-primary">Comentar</button>
-            </p>
-        </div>
+       <FormTodo  v-on:addTodo='addComment' ></FormTodo>
+       <p v-if='comments.length <= 0'>0 comentários</p>
+       <p v-else-if='comments.length === 1'>1 comentários</p>
+       <p v-else-if='comments.length === 2'>2 comentários</p>
+       <p v-else-if='comments.length === 3'>3 comentários</p>
+       <p v-else-if='comments.length === 4'>4 comentários</p>
+       <p v-else-if='comments.length === 5'>5 comentários</p>
+       <p v-else-if='comments.length === 6'>6 comentários</p>
+       <p v-else-if='comments.length === 7'>7 comentários</p>
+       <p v-else-if='comments.length === 8'>8 comentários</p>
+       <p v-else-if='comments.length === 9'>9 comentários</p>
+       <p v-else-if='comments.length === 10'>10 comentários</p>
+       <p v-else-if='comments.length >= 11'>Mais de 10 comentários</p>
         <div class="list-group">
-            <div  class="list-group-item" v-for="(comment, index) in allComments" :key="comment.name">
+            <div  class="list-group-item" v-for="(comment, index) in allComments" :key="comment">
                <span class="comment_author">Autor: <strong>{{ comment.name }}</strong></span>
                <p>{{ comment.message }}</p>
                <div>
@@ -27,30 +29,26 @@
 </template>
 
 <script>
+import FormTodo from './FormTodo'
 export default {
+
+components: {
+    FormTodo
+},
+
 data() {
           return {
              comments: [
                 
              ],
-             name: '',
-             message:''
-          }
-      },
+            
+      }
+    },
       methods: {
-          addComment(){
-              if(this.message.trim() === ''){
-                  return;
-              }
-
-            this.comments.push({
-                name: this.name,
-                message: this.message,
-            })
-
-              this.name = "";
-              this.message = "";
+          addComment(comment){
+             this.comments.push(comment)
           },
+    
           removeComment(index){
               this.comments.splice(index, 1);
           }
